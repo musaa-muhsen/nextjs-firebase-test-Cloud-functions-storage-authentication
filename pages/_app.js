@@ -1,7 +1,15 @@
-import '../styles/globals.css'
+import {AuthProvider} from '../auth';
+
+
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  // wrapped with the themeProvider and also have CSSReset 
+  return (
+
+  <AuthProvider> 
+     <Component {...pageProps} />
+  </AuthProvider> 
+  )
 }
 
 export default MyApp
