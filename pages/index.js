@@ -1,29 +1,35 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import {sanityClient} from '../sanity'; 
 
 
-import React, { useEffect, useCallback } from 'react';
+
+import React, { useEffect, useState} from 'react';
 import Link from 'next/link';
 import {useAuth} from '../auth';
 //import { ButtonGroup } from '@chakra-ui/core';
 //import Container from '../components/Container';
 //import {Flex, Box, Button, Text, Heading, Stack} from "@chakra-ui/react";
 
+import firebaseClient from "../firebaseClient";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default function Home() {
+  firebaseClient();
+ 
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
 
   const {user} = useAuth();
   //console.log(account)
-console.log(user)
+
        return (
            <> 
-                Welcome to our home
-          <p>{`User ID: ${
+          {/* <p>{`User ID: ${
             user ? user.uid : "no user signed in"
-          }`}</p>
-          <div>
+          }`}</p> */}
+          {/* <div>
             <button>
               <Link href="/authenticated">
                 <a>Go to authenticated route</a>
@@ -34,7 +40,66 @@ console.log(user)
                 <a>Login</a>
               </Link>
             </button>
-          </div>
+          </div> */}
+       <div>
+        <h1>
+          Login
+        </h1>
+       
+          <label htmlFor="email">Email address</label>
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            id="emailAddress"
+            value={email}
+            aria-describedby="email-helper-text"
+          />
+   
+      
+       
+          <label htmlFor="password">Password</label>
+          <input
+            onChange={(e) => setPass(e.target.value)}
+            type="password"
+            id="pass"
+            value={pass}
+            aria-describedby="password-helper-text"
+          />
+   
+          <button
+            onClick={async () => {
+              await firebase
+                .auth()
+                .createUserWithEmailAndPassword(email, pass)
+                .then(function (firebaseUser) {
+                  window.location.href = "/authenticated";
+                })
+                .catch(function (error) {
+                  const message = error.message;
+                  console.log(message)
+                });
+            }}
+          >
+            Create account
+          </button> 
+
+          <button
+            onClick={async () => {
+              await firebase
+                .auth()
+                .signInWithEmailAndPassword(email, pass)
+                .then(function (firebaseUser) {
+                  window.location.href = "/authenticated";
+                })
+                .catch(function (error) {
+                  const message = error.message;
+                  console.log(message)
+                });
+            }}
+          >
+            Log in
+          </button>
+    </div>
        
   
     </>

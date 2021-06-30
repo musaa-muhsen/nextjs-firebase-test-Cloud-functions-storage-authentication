@@ -42,7 +42,7 @@ export default function Login({ props }) {
                 .auth()
                 .createUserWithEmailAndPassword(email, pass)
                 .then(function (firebaseUser) {
-                  window.location.href = "/";
+                  window.location.href = "/authenticated";
                 })
                 .catch(function (error) {
                   const message = error.message;
@@ -59,7 +59,7 @@ export default function Login({ props }) {
                 .auth()
                 .signInWithEmailAndPassword(email, pass)
                 .then(function (firebaseUser) {
-                  window.location.href = "/";
+                  window.location.href = "/authenticated";
                 })
                 .catch(function (error) {
                   const message = error.message;
