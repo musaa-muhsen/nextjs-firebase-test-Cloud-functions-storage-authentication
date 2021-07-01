@@ -8,16 +8,16 @@ import 'firebase/auth';        // for authentication
 
 console.log(sanityClient)
 
-function Authenticated({ session, email, uid, account }) {
+function Authenticated({  email, uid, sanityData, name }) {
   firebaseClient();
-  //console.log(email)
-  console.log(account)
+  //console.log(hello)
+
   /*
   if (account === undefined) {
     // do something 
   }
   */
-  if (session) {
+  if (uid) {
     return (
       <div>
           <h1>
@@ -26,6 +26,7 @@ function Authenticated({ session, email, uid, account }) {
           </h1>
          
             <p>{email}</p>
+            <p>{name}</p>
             <p>
               You can now do anything you want in our application.
             </p>
@@ -52,27 +53,30 @@ function Authenticated({ session, email, uid, account }) {
 }
 
 export const getServerSideProps = async (context) => {
-    console.log(context)
+    //console.log(context) // node stuff 
+    // here will be dynamic 
     const query = '*[ _type == "parentAccount"]'
-    const account = await sanityClient.fetch(query)
+    const sanityData = await sanityClient.fetch(query)
 
-    if (!account.length) {
+    if (!sanityData.length) {
       return {
         props: {
-          account: []
+          sanityData: []
         }
   
       }
     }
   try {
     const cookies = nookies.get(context);
+    //console.log(cookies)
     const token = await verifyIdToken(cookies.token);
-    const { uid, email } = token;
+    console.log(token);
+    const { uid, email, name } = token;
     return {
-      props: { session: `Your email is ${email} and your UID is ${uid}.`, uid, email, account },
+      props: { uid, email, sanityData, name},
     };
   } catch (err) {
-    // maybe change to 302???
+    // maybe change to 302??? what is 307 and
     context.res.writeHead(307, { Location: "/" });
     context.res.end();
     return { props: {} };

@@ -22,11 +22,11 @@ export const AuthProvider = ({children}) => {
                 return;
             }
             const token = await user.getIdToken();
+            
             setUser(user);
             nookies.set(undefined, "token" , token, {});
         }) 
     }, []);
-
     return (
     <AuthContext.Provider value={{user}}>{children}</AuthContext.Provider>
     );
