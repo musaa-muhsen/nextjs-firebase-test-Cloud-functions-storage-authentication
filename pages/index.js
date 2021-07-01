@@ -1,9 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-
-
-
+import {sanityClient} from '../sanity'; 
 import React, { useEffect, useState} from 'react';
 import Link from 'next/link';
 import {useAuth} from '../auth';
@@ -14,9 +12,69 @@ import firebaseClient from "../firebaseClient";
 import firebase from "firebase/app";
 import "firebase/auth";
 require('firebase/auth')
+//client.fetch
+// getServerSideProps or whatever function needs to be spelt properly 
+/*
+export const getServerSideProps = async (context) => {
+//  const query = '*[_type == "client" && name == "Gucci"]';
+//  const query2 = '*[_type == "landingPage"]';
+const gucci = 'Tom Ford';
+  const query3 = '*'
+  const query4 = `{
+    "one": *[_type == "client" && name == "${gucci}" && email == "tomford@aol.com"],
+    "two": *[_type == "landingPage"]
+    }`
+    //console.log(query4)
+  const sanityData = await sanityClient.fetch(query4);
+  //const sanityLandingPageData = await sanityClient.fetch(query2);
+   //const sanityData = await sanityClient.getDocuments(["2a63e79a-d57c-4b0a-9523-2e9869950bb7", "7c5c5fa1-7a57-44fd-86b2-64761941ccd2"]);
+   //const hello = await sanityData([a, b] );
+  //  const [a,b] = sanityData;
+  //  console.log(a,b)
+  // .then(([a, b]) => {
+    
+  //   return a , b
+   
+  // })
+  //  const delete2 = await sanityClient.delete("ac0b986e-daac-4cff-a0d6-257675ab75a2");
+  //  const x = await delete2;
+  //  console.log(x);
+  // .then(res => {
+  //   console.log(res)
+  //   console.log('Bike deleted')
+  // })
+  // .catch(err => {
+  //   console.error('Delete failed: ', err.message)
+  // })
 
-export default function Home() {
+  // if (!sanityData.length) {
+  //   return {
+  //     props: {
+  //       account: []
+  //     }
+
+  //   }
+  // } else {
+
+//}
+// const {a,b} =sanityData;
+// console.log(a, 'yo')
+return {
+  props: {
+    sanityData,
+  }
+
+// }
+
+}
+}
+*/
+
+
+export default function Home({a,b, sanityData}) {
   firebaseClient();
+  //console.log(sanityData)
+  //console.log(sanityLandingPageData)
 
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
@@ -24,7 +82,7 @@ export default function Home() {
   //console.log(displayName)
 
   const {user} = useAuth();
-  //console.log(account)
+  //console.log(sanityData)
 
        return (
            <> 
@@ -47,38 +105,50 @@ export default function Home() {
         <h1>
           Login
         </h1>
-       
-          <label htmlFor="email">Email address</label>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            id="emailAddress"
-            value={email}
-            aria-describedby="email-helper-text"
-          />
-   
-      
-       
-          <label htmlFor="password">Password</label>
-          <input
-            onChange={(e) => setPass(e.target.value)}
-            type="password"
-            id="pass"
-            value={password}
-            aria-describedby="password-helper-text"
-          />
-
-          <label htmlFor="password">User Name</label>
+<div>
+{/* <label htmlFor="password">User Name</label> */}
           <input
             onChange={(e) => setDisplayName(e.target.value)}
             type="text"
             id="userName"
             value={displayName}
             aria-describedby="username-helper-text"
+            placeholder="User Name"
           />
+</div>
+<div>
+  
+{/* <label htmlFor="email">Email address</label> */}
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            id="emailAddress"
+            value={email}
+            aria-describedby="email-helper-text"
+            placeholder="Email"
+          />
+</div>
+<div>
+{/* <label htmlFor="password">Password</label> */}
+          <input
+            onChange={(e) => setPass(e.target.value)}
+            type="password"
+            id="pass"
+            value={password}
+            aria-describedby="password-helper-text"
+            placeholder="Password"
+          />
+</div>
+       
+       
+   
+      
+       
+       
+
          
           <button
-            onClick={async () => {
+            onClick={async (e) => {
               // this is where we need to add the username 
 
                 //   .createUser({
@@ -86,19 +156,27 @@ export default function Home() {
               //     password,
               //     displayName	
               // })
+              e.preventDefault();
               await firebase
                 .auth()
                 .createUserWithEmailAndPassword(email, password)
                 .then((userCredentials)=>{
                   //If you do not want to add an User doc to Firestore and just use the Firestore Auth data, you don`t need the pushUserData() method.
-                  if(userCredentials.user){
-                    userCredentials.user.updateProfile({
-                      displayName : displayName
-                    })
+                  if (displayName.length > 1) {
+                    if(userCredentials.user){
+                      userCredentials.user.updateProfile({
+                        displayName : displayName
+                      })
+                    }
+                  } else {
+                    console.log('please add user name');
                   }
+          
                   // maybe add validation here about empty user name 
-                  console.log(userCredentials.user)
-
+                  //console.log(userCredentials.user)
+                  setEmail("");
+                  setPass("");
+                  setDisplayName("");
                 })
                 // .then(function (firebaseUser) {
                 //   window.location.href = "/authenticated";
@@ -113,22 +191,28 @@ export default function Home() {
           </button> 
 
           <button
-            onClick={async () => {
+            onClick={async (e) => {
+              e.preventDefault();
               await firebase.auth()
                 .signInWithEmailAndPassword(email, password)
                 .then((userCredentials)=>{
-                 // console.log(x)
+                  //console.log(userCredentials);
                   if (userCredentials.user.displayName ===  displayName) {
                     window.location.href = "/authenticated";
                   } else {
-                    alert('no entry')
+                    // add a component for error here 
+                    console.log('no entry')
                   }
+                  setEmail("");
+                  setPass("");
+                  setDisplayName("");
                 })
                 // .then(function (firebaseUser) {
                 //   window.location.href = "/authenticated";
                 // })
                 .catch(function (error) {
                   const message = error.message;
+                  // add a component for error here as well 
                   console.log(message)
                 });
             }}
@@ -143,27 +227,5 @@ export default function Home() {
   )
 }
 
+//The onChange event in React detects when the value of an input element changes. 
 
-
-// getServerSideProps or whatever function needs to be spelt properly 
-// export const getServerSideProps = async () => {
-//   const query = '*[ _type == "parentAccount"]'
-//   const account = await sanityClient.fetch(query)
-
-// console.log(account)
-//   if (!account.length) {
-//     return {
-//       props: {
-//         account: []
-//       }
-
-//     }
-//   } else {
-//   return {
-//     props: {
-//       account
-//     }
-
-//   }
-// }
-// }
