@@ -10,6 +10,7 @@ const config = {
    **/
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  token: process.env.NEXT_PUBLIC_SANITY_API_ACCESS_TOKEN,
   useCdn: false,
   apiVersion: '2021-06-28'
   /**

@@ -8,15 +8,16 @@ import 'firebase/auth';   // for authentication
 
 function Authenticated({  email, uid, sanityData, name }) {
   firebaseClient();
-  console.log(sanityData)
-
+ 
+  var sanityLength = Object.keys(sanityData).length;
   /*
   if (account === undefined) {
     // do something 
   }
   */
  // if statement here for a loading screen 
-  if (uid) {
+ // add more component based parts is essential 
+  if (uid && sanityLength > 1) {
     return (
       <div>
           <h1>
@@ -74,20 +75,23 @@ export const getServerSideProps = async (context) => {
   //   }
   // }
 try {
-
-
   const cookies = nookies.get(context);
-  //console.log(cookies)
   const token = await verifyIdToken(cookies.token);
-  console.log(token);
   const { uid, email, name } = token;
+  //console.log(email, name);
   const query3 = '*'
   const query4 = `{
     "one": *[_type == "client" && name == "${name}" && email == "${email}"],
     "two": *[_type == "landingPage"]
     }`
-    console.log(query4)
+
   const sanityData = await sanityClient.fetch(query4);
+  //console.log(sanityData)
+
+  const delete2 = await sanityClient.delete("ac0b986e-daac-4cff-a0d6-257675ab75a2");
+  console.log(delete2)
+  //  const x = await delete2;
+  //  console.log(x);
   // maybe add a condional here
   return {
     props: { uid, email, sanityData, name},

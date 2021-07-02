@@ -14,18 +14,18 @@ import "firebase/auth";
 require('firebase/auth')
 //client.fetch
 // getServerSideProps or whatever function needs to be spelt properly 
-/*
+
 export const getServerSideProps = async (context) => {
 //  const query = '*[_type == "client" && name == "Gucci"]';
 //  const query2 = '*[_type == "landingPage"]';
-const gucci = 'Tom Ford';
-  const query3 = '*'
-  const query4 = `{
-    "one": *[_type == "client" && name == "${gucci}" && email == "tomford@aol.com"],
-    "two": *[_type == "landingPage"]
-    }`
+// const gucci = 'Tom Ford';
+//   const query3 = '*'
+//   const query4 = `{
+//     "one": *[_type == "client" && name == "${gucci}" && email == "tomford@aol.com"],
+//     "two": *[_type == "landingPage"]
+//     }`
     //console.log(query4)
-  const sanityData = await sanityClient.fetch(query4);
+  //const sanityData = await sanityClient.fetch(query4);
   //const sanityLandingPageData = await sanityClient.fetch(query2);
    //const sanityData = await sanityClient.getDocuments(["2a63e79a-d57c-4b0a-9523-2e9869950bb7", "7c5c5fa1-7a57-44fd-86b2-64761941ccd2"]);
    //const hello = await sanityData([a, b] );
@@ -36,9 +36,15 @@ const gucci = 'Tom Ford';
   //   return a , b
    
   // })
-  //  const delete2 = await sanityClient.delete("ac0b986e-daac-4cff-a0d6-257675ab75a2");
-  //  const x = await delete2;
-  //  console.log(x);
+   sanityClient.delete('ac0b986e-daac-4cff-a0d6-257675ab75a2')
+   .then((res) => {
+     console.log(res)
+   }).catch((err) => {
+    console.error('Delete failed: ', err.message)
+  })
+  console.log(process.env.NEXT_PUBLIC_SANITY_API_ACCESS_TOKEN)
+  
+   //console.log(delete2);
   // .then(res => {
   //   console.log(res)
   //   console.log('Bike deleted')
@@ -61,17 +67,17 @@ const gucci = 'Tom Ford';
 // console.log(a, 'yo')
 return {
   props: {
-    sanityData,
+    null: null
   }
 
 // }
 
 }
 }
-*/
 
 
-export default function Home({a,b, sanityData}) {
+
+export default function Home({}) {
   firebaseClient();
   //console.log(sanityData)
   //console.log(sanityLandingPageData)
