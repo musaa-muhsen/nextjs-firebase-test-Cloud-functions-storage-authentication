@@ -1,0 +1,29 @@
+* {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+     outline: red solid 1px;
+  }
+
+html {
+   // background: red;
+}
+body {
+    
+    font-family: sans-serif;
+    //margin: 0 auto;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+}
+a {
+    color: #000;
+    cursor: none !important;
+  }
+  
+  ul,
+  li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }

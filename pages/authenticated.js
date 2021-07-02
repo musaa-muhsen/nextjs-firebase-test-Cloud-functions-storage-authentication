@@ -88,10 +88,7 @@ try {
   const sanityData = await sanityClient.fetch(query4);
   //console.log(sanityData)
 
-  const delete2 = await sanityClient.delete("ac0b986e-daac-4cff-a0d6-257675ab75a2");
-  console.log(delete2)
-  //  const x = await delete2;
-  //  console.log(x);
+
   // maybe add a condional here
   return {
     props: { uid, email, sanityData, name},

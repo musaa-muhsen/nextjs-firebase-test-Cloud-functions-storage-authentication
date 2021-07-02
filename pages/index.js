@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 import {sanityClient} from '../sanity'; 
 import React, { useEffect, useState} from 'react';
 import Link from 'next/link';
@@ -19,13 +19,13 @@ export const getServerSideProps = async (context) => {
 //  const query = '*[_type == "client" && name == "Gucci"]';
 //  const query2 = '*[_type == "landingPage"]';
 // const gucci = 'Tom Ford';
-//   const query3 = '*'
+  const query3 = '*[_type == "parentAccount"]'
 //   const query4 = `{
 //     "one": *[_type == "client" && name == "${gucci}" && email == "tomford@aol.com"],
 //     "two": *[_type == "landingPage"]
 //     }`
     //console.log(query4)
-  //const sanityData = await sanityClient.fetch(query4);
+  const sanityData = await sanityClient.fetch(query3);
   //const sanityLandingPageData = await sanityClient.fetch(query2);
    //const sanityData = await sanityClient.getDocuments(["2a63e79a-d57c-4b0a-9523-2e9869950bb7", "7c5c5fa1-7a57-44fd-86b2-64761941ccd2"]);
    //const hello = await sanityData([a, b] );
@@ -36,13 +36,14 @@ export const getServerSideProps = async (context) => {
   //   return a , b
    
   // })
-   sanityClient.delete('ac0b986e-daac-4cff-a0d6-257675ab75a2')
+  // no need for async await because it's kind of self involved 
+   sanityClient.delete('8ac587de-a55c-4a21-8a34-30d45cb9a523')
    .then((res) => {
      console.log(res)
    }).catch((err) => {
     console.error('Delete failed: ', err.message)
   })
-  console.log(process.env.NEXT_PUBLIC_SANITY_API_ACCESS_TOKEN)
+  //console.log(process.env.NEXT_PUBLIC_SANITY_API_ACCESS_TOKEN)
   
    //console.log(delete2);
   // .then(res => {
@@ -67,7 +68,7 @@ export const getServerSideProps = async (context) => {
 // console.log(a, 'yo')
 return {
   props: {
-    null: null
+    sanityData
   }
 
 // }
@@ -77,9 +78,9 @@ return {
 
 
 
-export default function Home({}) {
+export default function Home({sanityData}) {
   firebaseClient();
-  //console.log(sanityData)
+  console.log(sanityData)
   //console.log(sanityLandingPageData)
 
   const [email, setEmail] = useState("");
@@ -107,8 +108,8 @@ export default function Home({}) {
               </Link>
             </button>
           </div> */}
-       <div>
-        <h1>
+       <div className={styles.signInContainer}>
+        <h1 className={styles.title}>
           Login
         </h1>
 <div>
