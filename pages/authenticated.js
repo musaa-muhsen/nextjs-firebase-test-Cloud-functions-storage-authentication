@@ -5,32 +5,22 @@ import { verifyIdToken } from "../firebaseAdmin";
 import firebase from "firebase/app";
 import {sanityClient} from '../sanity'; 
 import 'firebase/auth';   // for authentication
+import UploadFile from "../components/storage/UploadFile";
 
 function Authenticated({  email, uid, sanityData, name }) {
   firebaseClient();
  
-  var sanityLength = Object.keys(sanityData).length;
-  /*
-  if (account === undefined) {
-    // do something 
-  }
-  */
+  const sanityLength = Object.keys(sanityData).length;
  // if statement here for a loading screen 
  // add more component based parts is essential 
   if (uid && sanityLength > 1) {
     return (
       <div>
-          <h1>
-            Authenticated
-        
-          </h1>
-         
-            <p>{email}</p>
-            <p>{name}</p>
+          <h1>{name}</h1>
+           
             <p>
-              You can now do anything you want in our application.
+              You're now authenticated can now do anything you want.
             </p>
-      
             <button
               onClick={
                   async () => {
@@ -41,18 +31,10 @@ function Authenticated({  email, uid, sanityData, name }) {
             >
               Sign out
             </button>
+            <UploadFile />
       </div>
     );
-  } 
-  // else if (sanityData.length > 1) {
-  //   // could add a footer and header of some sort here 
-  //   return (
-  //     <div>
-  //       <p></p>
-  //     </div>
-  //   );
-  // } 
-  else {
+  } else {
     return (
       <div>
         <p>loading...</p>
@@ -87,9 +69,7 @@ try {
 
   const sanityData = await sanityClient.fetch(query4);
   //console.log(sanityData)
-
-
-  // maybe add a condional here
+  //maybe add a condional here
   return {
     props: { uid, email, sanityData, name},
   };
@@ -99,9 +79,7 @@ try {
   context.res.writeHead(307, { Location: "/" });
   context.res.end();
   return { props: {} };
-}
-
-
+ }
 }
 
 export default Authenticated;
