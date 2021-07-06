@@ -1,7 +1,8 @@
 import styles from '../styles/Home.module.scss'
-import {sanityClient} from '../sanity'; 
+//import {sanityClient} from '../sanity'; 
 import React from 'react';
 import SignInPage from '../components/SignInPage'
+import WriteToCloudFirestore from '../components/cloudFirestore/Write';
 
 export default function Home({sanityData}) {
 //console.log(sanityData)
@@ -12,6 +13,7 @@ export default function Home({sanityData}) {
            <> 
            <div className={styles.mainContainer}>
            <SignInPage />
+           <WriteToCloudFirestore />
            </div>
             
            </>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import firebaseClient from "../firebaseClient";
 import firebase from "firebase/app";
 import "firebase/auth";

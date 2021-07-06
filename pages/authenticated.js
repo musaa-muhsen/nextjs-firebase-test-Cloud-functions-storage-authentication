@@ -1,13 +1,22 @@
 import React from "react";
 import nookies from "nookies";
 import { verifyIdToken } from "../firebaseAdmin";
- import firebaseClient from "../firebaseClient";
+import firebaseClient from "../firebaseClient";
 import firebase from "firebase/app";
 import {sanityClient} from '../sanity'; 
 import 'firebase/auth';   // for authentication
-import UploadFile from "../components/storage/UploadFile";
+import Table from "../components/Table";
+import Footer from '../components/Footer'
+// import UploadFile from "../components/storage/UploadFile";
+// import UploadFile2 from "../components/storage/UploadFile2";
 
 function Authenticated({  email, uid, sanityData, name }) {
+  let tables = [];
+for (let i = 0; i < sanityData.one[0].statics.length; i++) {
+  tables.push(<Table key={i} sanityData={sanityData.one[0].statics[i]}/>)
+}
+
+  console.log(sanityData.one[0].statics[1])
   firebaseClient();
  
   const sanityLength = Object.keys(sanityData).length;
@@ -31,7 +40,11 @@ function Authenticated({  email, uid, sanityData, name }) {
             >
               Sign out
             </button>
-            <UploadFile />
+            {tables}
+
+           
+         
+           <Footer sanityData={sanityData} />
       </div>
     );
   } else {
@@ -64,7 +77,8 @@ try {
   const query3 = '*'
   const query4 = `{
     "one": *[_type == "client" && name == "${name}" && email == "${email}"],
-    "two": *[_type == "landingPage"]
+    "two": *[_type == "landingPage"],
+    "three": *[_type == "footer"]
     }`
 
   const sanityData = await sanityClient.fetch(query4);

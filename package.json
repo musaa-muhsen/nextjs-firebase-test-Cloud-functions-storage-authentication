@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@firebase/firestore": "^2.3.8",
     "firebase": "^8.6.8",
     "firebase-admin": "^9.10.0",
     "next": "11.0.1",
@@ -19,6 +20,7 @@
     "sass": "^1.35.1"
   },
   "devDependencies": {
+    "@firebase/app-types": "0.x",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1"
   }

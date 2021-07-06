@@ -11,6 +11,9 @@ const UploadFile = () => {
     function uploadFile() {
         var file = inputEl.current.files[0];
         console.log(file);
+        var metaData = {
+            nameType: 'hello'
+        }
         if(file === undefined || file === null) {
             return null
         } else {
