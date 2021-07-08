@@ -1,8 +1,9 @@
 import React, { useEffect, useState} from 'react';
 //import {useAuth} from '../auth';
-import firebaseClient from "../firebaseClient";
-import firebase from "firebase/app";
-import "firebase/auth";
+//import firebaseClient from "../firebaseClient";
+//import firebase from "firebase/app";
+import {firebase}  from '../firebaseClient';
+//import "firebase/auth";
 import styles from '../styles/SignInPage.module.scss'
 
 

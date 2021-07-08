@@ -1,9 +1,9 @@
 //this is going to wrap everything in our app in an auth context and use that to handle all authentication throughout the whole entire app 
 import React, {useState, useEffect, useContext, createContext} from 'react';
 import nookies from 'nookies';
-import {firebase} from './firebaseClient';
-//import firebase from 'firebase/app';
-import 'firebase/auth';
+//import {firebase} from './firebaseClient';
+import firebase from 'firebase/app';
+import '@firebase/auth';
 
 
 const AuthContext = createContext({});

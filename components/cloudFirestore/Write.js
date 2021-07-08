@@ -1,6 +1,6 @@
 
-import { firebase } from '@firebase/app';
-import '@firebase/firestore';
+// import { firebase } from '@firebase/app';
+// import '@firebase/firestore';
 import {projectFirestore} from '../../firebaseClient'
 //import Button from 'react-bootstrap/Button'
 

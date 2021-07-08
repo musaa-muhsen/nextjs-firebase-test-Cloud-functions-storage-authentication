@@ -1,20 +1,20 @@
 import React from "react";
 import nookies from "nookies";
 import { verifyIdToken } from "../firebaseAdmin";
-import firebaseClient from "../firebaseClient";
-import firebase from "firebase/app";
+//import firebaseClient from "../firebaseClient";
+import {firebase}  from '../firebaseClient';
 import {sanityClient} from '../sanity'; 
-//import 'firebase/auth';   // for authentication doesnt do anything
+import '@firebase/auth';   // for authentication doesnt do anything?
 import Table from "../components/Table";
 import Footer from '../components/Footer'
 import styles from '../styles/Auth.module.scss'
-import {urlFor} from '../sanity';
+//import {urlFor} from '../sanity';
 import LandingPageMain from "../components/landingPage/LandingPageMain";
 
  import UploadFile from "../components/storage/UploadFile";
 import ProjectDetails from "../components/ProjectDetails";
 import StaticsImages from "../components/StatsImages";
-// import UploadFile2 from "../components/storage/UploadFile2";
+import UploadFile2 from "../components/storage/UploadFile2";
 
 
 function Authenticated({  email, uid, sanityData, name }) {
@@ -36,9 +36,7 @@ function Authenticated({  email, uid, sanityData, name }) {
 
 const sanityLength = Object.keys(sanityData).length;
 
-// important VVVV! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//firebaseClient();
- 
+
  // if statement here for a loading screen 
  // add more component based parts is essential 
   if (sanityLength > 0) {

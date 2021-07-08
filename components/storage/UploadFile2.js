@@ -1,6 +1,7 @@
-import { firebase } from '@firebase/app';
-import '@firebase/firestore'
-import '@firebase/storage';
+//import * as firebase  from '@firebase/app'; // * means everything as firebase 
+//import '@firebase/firestore' // database 
+//import '@firebase/storage'; // store our files 
+import {firebase,projectStorage, projectFirestore }  from '../../firebaseClient';
 
 import React,  {useRef, useState, useEffect} from 'react';
 
@@ -16,7 +17,7 @@ const UploadFile2 = () => {
     // 
    const onFileChange = async (e) => {
       const file = e.target.files[0];  // get a reference to our file 
-      const storageRef = firebase.storage().ref(); // storage reference from firebase 
+      const storageRef = projectStorage.ref(); // storage reference from firebase 
       const fileRef = storageRef.child(file.name); // file reference 
       await fileRef.put(file)// put our file into firebase storage 
       setFileUrl(await fileRef.getDownloadURL());//we need to get the URL for this file because when we will making the user record with username and avatar 
@@ -30,7 +31,7 @@ const UploadFile2 = () => {
         if(!username) {
           return
         }
-        firebase.firestore().collection('users').doc(username).set({
+        projectFirestore.collection('users').doc(username).set({
             name: username,
             avatar: fileUrl
         })
@@ -39,7 +40,7 @@ const UploadFile2 = () => {
     // here we are retrieving 
     useEffect(() => {
      const fetchUsers = async () => {
-         const usersCollection = await firebase.firestore().collection('users').get();
+         const usersCollection = await projectFirestore.collection('users').get();
          console.log(usersCollection)
          setUsers(usersCollection.docs.map(doc => {
              return doc.data();
@@ -64,7 +65,7 @@ const UploadFile2 = () => {
                 //         </li>
                 //     );
                 // })
-                null
+                
             }
         </ul>
         </>

@@ -8,7 +8,7 @@
 // import 'firebase/analytics'
 // import 'firebase/performance'
 
-import fb from '@firebase/app'; // * means everything as firebase 
+import fb from '@firebase/app'; 
 import '@firebase/firestore' // database 
 import '@firebase/storage'; // store our files 
 
@@ -30,9 +30,13 @@ const FIREBASE_CONFIG = {
 //     //console.log('winning')
 //   }
 
+/*
+The reason behind this is that firebase can only be initialized once, but the way you're doing it right now, Next.js tries to initialize it both on the backend and the frontend.
+This method checks to see whether there it's been initialized already, and only initializes it if it has been. If not, it just returns the initialized firebase app
+*/
 export const firebase = !fb.apps.length ? fb.initializeApp(FIREBASE_CONFIG) : fb.app();
 
-  const projectStorage = firebase.storage();
-  const projectFirestore = firebase.firestore();
+const projectStorage = firebase.storage();
+const projectFirestore = firebase.firestore();
 
-  export {projectStorage, projectFirestore}
+export {projectStorage, projectFirestore}
