@@ -2,7 +2,7 @@ import {AuthProvider} from '../auth';
 import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }) {
-  // wrapped with the themeProvider and also have CSSReset 
+  // wrapped with the themeProvider 
   return (
 
   <AuthProvider> 

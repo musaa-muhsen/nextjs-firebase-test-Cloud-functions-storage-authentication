@@ -7,54 +7,87 @@ import {sanityClient} from '../sanity';
 import 'firebase/auth';   // for authentication
 import Table from "../components/Table";
 import Footer from '../components/Footer'
-// import UploadFile from "../components/storage/UploadFile";
+import styles from '../styles/Auth.module.scss'
+import {urlFor} from '../sanity';
+import LandingPageMain from "../components/landingPage/LandingPageMain";
+
+ import UploadFile from "../components/storage/UploadFile";
+import ProjectDetails from "../components/ProjectDetails";
+import StaticsImages from "../components/StatsImages";
 // import UploadFile2 from "../components/storage/UploadFile2";
 
-function Authenticated({  email, uid, sanityData, name }) {
-  let tables = [];
-for (let i = 0; i < sanityData.one[0].statics.length; i++) {
-  tables.push(<Table key={i} sanityData={sanityData.one[0].statics[i]}/>)
-}
 
-  console.log(sanityData.one[0].statics[1])
-  firebaseClient();
+function Authenticated({  email, uid, sanityData, name }) {
+  const [tables, setTables] = React.useState([])
+  console.log(sanityData)
+
+  React.useEffect(() => {
+  if (sanityData.one[0].statics) {
+    let tables = [];
+    for (let i = 0; i < sanityData.one[0].statics.length; i++) {
+      tables.push(<Table key={i} sanityData={sanityData.one[0].statics[i]}/>)
+    }
+    setTables(tables);
+    //console.log('true')
+   
+  }
+  // add more here 
+}, [])
+
+const sanityLength = Object.keys(sanityData).length;
+
+// important VVVV! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+firebaseClient();
  
-  const sanityLength = Object.keys(sanityData).length;
  // if statement here for a loading screen 
  // add more component based parts is essential 
-  if (uid && sanityLength > 1) {
+  if (sanityLength > 0) {
     return (
-      <div>
-          <h1>{name}</h1>
-           
-            <p>
-              You're now authenticated can now do anything you want.
-            </p>
-            <button
-              onClick={
+      <>
+        <header className={styles.header}>
+        <h1>{name}</h1> 
+        <div></div>
+        <button
+        className={styles.logOutBtn}
+          onClick={
                   async () => {
                 await firebase.auth().signOut();
                 window.location.href = "/";
-              }
-            }
-            >
-              Sign out
-            </button>
-            {tables}
+          }}>Sign out</button>
+        </header>
 
+        <section className={styles.mainContainer}>
+            <p>
+              You're now authenticated can now do anything you want.
+            </p>
+           
+              <LandingPageMain sanityData={sanityData}/>
+              
+              <UploadFile />
+
+              {tables.length > 0 ? tables : null}
+
+         {sanityData.one[0].statsImages   && <StaticsImages sanityData={sanityData} /> }
+
+             {sanityData.one[0].blockText && <ProjectDetails sanityData={sanityData}/>} 
+            
            
          
-           <Footer sanityData={sanityData} />
-      </div>
+        </section>  
+
+        <Footer sanityData={sanityData} />
+      </>
     );
   } else {
     return (
       <div>
-        <p>loading...</p>
+        <p>Loading...</p>
       </div>
     );
   }
 }
+
+
 
 export const getServerSideProps = async (context) => {
   //console.log(context) // node stuff 

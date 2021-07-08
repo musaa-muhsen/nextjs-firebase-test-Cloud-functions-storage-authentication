@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@firebase/firestore": "^2.3.8",
+    "@sanity/block-content-to-react": "^3.0.0",
     "firebase": "^8.6.8",
     "firebase-admin": "^9.10.0",
     "next": "11.0.1",

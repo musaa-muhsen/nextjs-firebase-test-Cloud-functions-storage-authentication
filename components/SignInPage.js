@@ -11,7 +11,6 @@ import styles from '../styles/SignInPage.module.scss'
 // import CreateButton from './buttons/CreateButton';
 
 const SignInPage = () => {
-
     firebaseClient();
     const [email, setEmail] = useState("");
     const [password, setPass] = useState("");
@@ -20,14 +19,15 @@ const SignInPage = () => {
     //console.log(displayName)
   
     //const {user} = useAuth();
-
     return ( 
         <div className={styles.signInContainer}>
-        <h1 className={styles.title}>
+          <div className={styles.signFormWrapper}>
+        <p className={styles.title}>
           Login
-        </h1>
+        </p>
          <div>
           <input
+          className={styles.inputs}
             onChange={(e) => setDisplayName(e.target.value)}
             type="text"
             id="userName"
@@ -38,6 +38,7 @@ const SignInPage = () => {
           </div>
           <div>
           <input
+             className={styles.inputs}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             id="emailAddress"
@@ -48,6 +49,7 @@ const SignInPage = () => {
          </div>
           <div>
           <input
+             className={styles.inputs}
             onChange={(e) => setPass(e.target.value)}
             type="password"
             id="pass"
@@ -58,6 +60,8 @@ const SignInPage = () => {
         </div>
  
          <button
+            className={styles.btn}
+
         onClick={async (e) => {
           // this is where we need to add the username 
 
@@ -72,7 +76,7 @@ const SignInPage = () => {
             .createUserWithEmailAndPassword(email, password)
             .then((userCredentials)=>{
               //If you do not want to add an User doc to Firestore and just use the Firestore Auth data, you don`t need the pushUserData() method.
-              if (displayName.length > 1) {
+              if (displayName.length > 0) {
                 if(userCredentials.user){
                   userCredentials.user.updateProfile({
                     displayName : displayName
@@ -82,7 +86,7 @@ const SignInPage = () => {
                 setPass("");
                 setDisplayName("");
               } else {
-                setErrorMessage('please add a user name');
+                setErrorMessage('Please add a user name.');
               }
               // maybe add validation here about empty user name 
               //console.log(userCredentials.user)
@@ -99,17 +103,22 @@ const SignInPage = () => {
         Create account
       </button> 
       <button
+       className={styles.btn}
             onClick={async (e) => {
               e.preventDefault();
               await firebase.auth()
                 .signInWithEmailAndPassword(email, password)
                 .then((userCredentials)=>{
                   //console.log(userCredentials);
-                  if (userCredentials.user.displayName ===  displayName) {
+                  if (userCredentials.user.displayName ===  displayName && userCredentials.user.displayName !== 'Admin') {
+                    //console.log(userCredentials.user);
                     window.location.href = "/authenticated";
-                  } else {
+                   }  else if (userCredentials.user.displayName ===  displayName && userCredentials.user.displayName === 'Admin') {
+                    window.location.href = "/admin";
+                   }
+                   else {
                     // add a component for error here 
-                    setErrorMessage('no entry')
+                    setErrorMessage('No entry!')
                   }
                   setEmail("");
                   setPass("");
@@ -128,6 +137,7 @@ const SignInPage = () => {
             Log in
           </button>
          <p>{errorMessage}</p>
+         </div>
     </div>
      );
 }
@@ -136,3 +146,13 @@ export default SignInPage;
 
        {/* <CreateButton setEmail={setEmail} email={email} setPass={setPass} password={password} setDisplayName={setDisplayName}/>
         <SingInButton setEmail={setEmail} email={email} setPass={setPass} password={password} setDisplayName={setDisplayName}/> */}
+     //  else if (userCredentials.user.displayName === 'Admin') {
+                  //   window.location.href = "/admin";
+                  //   }
+
+                  /*
+ else if (userCredentials.user.displayName == 'Admin') {
+                      //window.location.href = "/admin";
+                      console.log('admin')
+                       }
+                  */

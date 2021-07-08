@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../styles/Table.module.scss';
 
 const TableRow = ({data}) => {
+  //console.log(data);
   const table_data = data.map((d,i) => {
     // add the click for link
 const data = d.includes('http') ?  <a className={styles.tableLink} href={`${d}`} rel="noopener noreferrer" target="_blank"> [click for link] </a> : d ;
@@ -28,7 +29,7 @@ for (let i = 1; i < sanityData.tableDetails.rows.length; i++) {
 } 
 
     return ( 
-      <>
+      <div className={styles.tableContainer}>
       <p className={styles.staticTitle}></p>
     <table className={styles.table}> 
     <thead>
@@ -40,7 +41,7 @@ for (let i = 1; i < sanityData.tableDetails.rows.length; i++) {
       {tableDataArray}
       </tbody>
    </table>
-   </>
+   </div>
      );
 }
  

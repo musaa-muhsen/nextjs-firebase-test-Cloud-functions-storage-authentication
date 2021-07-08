@@ -6,14 +6,18 @@ import WriteToCloudFirestore from '../components/cloudFirestore/Write';
 
 export default function Home({sanityData}) {
 //console.log(sanityData)
+const backgroundImage = {backgroundImage: `url('/assets/CUBICLE_Detail-2020_1820.jpg')`};
 
 
 
        return (
            <> 
            <div className={styles.mainContainer}>
+            <div className={styles.imageContainer} style={backgroundImage}>
+             <p>LOGO</p> 
+            </div>
            <SignInPage />
-           <WriteToCloudFirestore />
+           {/* <WriteToCloudFirestore /> */}
            </div>
             
            </>

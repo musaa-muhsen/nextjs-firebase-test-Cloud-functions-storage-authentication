@@ -2,19 +2,20 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 import {useRef, useState} from 'react';
 
+// there's no ref here 
 const UploadFile = () => {
 
     const [value, setValue] = useState(0);
+    const [complete, setComplete] = useState(null);
     const inputEl = useRef(null);
     console.log(inputEl);
 
     function uploadFile() {
         var file = inputEl.current.files[0];
-        console.log(file);
-        var metaData = {
-            nameType: 'hello'
-        }
-        if(file === undefined || file === null) {
+        //console.log(file);
+       // condition here is because on cancelled download 
+       // if(file === undefined || file === null) {
+           if (file) {
             return null
         } else {
             var storageRef = firebase.storage().ref('user_uploads/' + file.name);
@@ -25,6 +26,7 @@ const UploadFile = () => {
 
         task.on('state_change',       
            function progress(snapshot) {
+               // only for the progress part 
                setValue((snapshot.bytesTransferred/snapshot.totalBytes)*100)
            },
            function error(err) {
@@ -32,20 +34,22 @@ const UploadFile = () => {
            },
            function complete() {
                // this is where to send a notification maybe 
-               console.log('Uploaded to firebase storage successfully');
+               setComplete('Uploaded to firebase storage successfully');
            }
         )
     }
 
      return (
-         <>
+         <div className="upload-container">
+             <p>You can upload any type of file, but still currently working on the ability to download and categories from other routes.</p>
            <progress value={value} max="100"></progress>
            <input 
              type="file"
              onChange={uploadFile}
              ref={inputEl}
             />
-         </>
+            {complete}
+         </div>
      )
 }
 
