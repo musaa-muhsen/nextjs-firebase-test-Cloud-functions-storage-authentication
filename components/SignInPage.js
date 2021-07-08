@@ -11,7 +11,7 @@ import styles from '../styles/SignInPage.module.scss'
 // import CreateButton from './buttons/CreateButton';
 
 const SignInPage = () => {
-    firebaseClient();
+    //firebaseClient();
     const [email, setEmail] = useState("");
     const [password, setPass] = useState("");
     const [displayName, setDisplayName] = useState("");

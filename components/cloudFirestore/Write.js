@@ -1,16 +1,15 @@
 
 import { firebase } from '@firebase/app';
-import '@firebase/firestore'
-//import { useUser } from '../../firebase/useUser'
+import '@firebase/firestore';
+import {projectFirestore} from '../../firebaseClient'
 //import Button from 'react-bootstrap/Button'
 
 const WriteToCloudFirestore = () => {
-    console.log(firebase.firestore().collection('test'))
+   // console.log(firebase.firestore().collection('test'))
     //const { user } = useUser()
     const sendData = () => {
         try {
-            firebase
-                .firestore()
+            projectFirestore
                 .collection('myCollection')
                 .doc() // leave as .doc() for a random unique doc name to be assigned
                 .set({

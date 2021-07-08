@@ -14,7 +14,8 @@ export const verifyIdToken = (token) => {
     .auth()
     .verifyIdToken(token)
     .catch((error) => {
-      throw error;
+      console.log('coming from firebaseAdmin.js')
+      throw error;  
     });
 };
 

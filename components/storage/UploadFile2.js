@@ -1,6 +1,6 @@
 import { firebase } from '@firebase/app';
 import '@firebase/firestore'
-import 'firebase/storage';
+import '@firebase/storage';
 
 import React,  {useRef, useState, useEffect} from 'react';
 
@@ -13,6 +13,7 @@ const UploadFile2 = () => {
     const [fileUrl, setFileUrl] = useState(null);
     const [users, setUsers] = useState(null);
 
+    // 
    const onFileChange = async (e) => {
       const file = e.target.files[0];  // get a reference to our file 
       const storageRef = firebase.storage().ref(); // storage reference from firebase 
@@ -22,6 +23,7 @@ const UploadFile2 = () => {
       //(after above) now let's submit the user data and link it with out image file 
 }
 
+// here we are adding to the collection 
     const onSubmit = (e) => {
         e.preventDefault();
         const username = e.target.username.value;
@@ -33,7 +35,8 @@ const UploadFile2 = () => {
             avatar: fileUrl
         })
     }
-
+   
+    // here we are retrieving 
     useEffect(() => {
      const fetchUsers = async () => {
          const usersCollection = await firebase.firestore().collection('users').get();

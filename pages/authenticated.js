@@ -4,7 +4,7 @@ import { verifyIdToken } from "../firebaseAdmin";
 import firebaseClient from "../firebaseClient";
 import firebase from "firebase/app";
 import {sanityClient} from '../sanity'; 
-import 'firebase/auth';   // for authentication
+//import 'firebase/auth';   // for authentication doesnt do anything
 import Table from "../components/Table";
 import Footer from '../components/Footer'
 import styles from '../styles/Auth.module.scss'
@@ -37,7 +37,7 @@ function Authenticated({  email, uid, sanityData, name }) {
 const sanityLength = Object.keys(sanityData).length;
 
 // important VVVV! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-firebaseClient();
+//firebaseClient();
  
  // if statement here for a loading screen 
  // add more component based parts is essential 

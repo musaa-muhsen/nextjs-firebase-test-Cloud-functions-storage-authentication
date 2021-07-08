@@ -17,7 +17,7 @@ const backgroundImage = {backgroundImage: `url('/assets/CUBICLE_Detail-2020_1820
              <p>LOGO</p> 
             </div>
            <SignInPage />
-           {/* <WriteToCloudFirestore /> */}
+           <WriteToCloudFirestore />
            </div>
             
            </>
