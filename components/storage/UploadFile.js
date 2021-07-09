@@ -3,6 +3,7 @@ import 'firebase/storage';
 import {useRef, useState} from 'react';
 
 // there's no ref here 
+// this is the first one when just uploading and nothing more but you can see 
 const UploadFile = () => {
 
     const [value, setValue] = useState(0);

@@ -2,7 +2,7 @@ import React from "react";
 import nookies from "nookies";
 import { verifyIdToken } from "../firebaseAdmin";
 //import firebaseClient from "../firebaseClient";
-import {firebase}  from '../firebaseClient';
+import {firebase }  from '../firebaseClient';
 import {sanityClient} from '../sanity'; 
 import '@firebase/auth';   // for authentication doesnt do anything?
 import Table from "../components/Table";
@@ -12,14 +12,18 @@ import styles from '../styles/Auth.module.scss'
 import LandingPageMain from "../components/landingPage/LandingPageMain";
 
  import UploadFile from "../components/storage/UploadFile";
+ import UploadFile2 from "../components/storage/UploadFile2";
+
+
 import ProjectDetails from "../components/ProjectDetails";
 import StaticsImages from "../components/StatsImages";
-import UploadFile2 from "../components/storage/UploadFile2";
 
+import UploadForm from "../components/UploadForm";
+import FileGrid from "../components/FileGrid";
 
 function Authenticated({  email, uid, sanityData, name }) {
   const [tables, setTables] = React.useState([])
-  console.log(sanityData)
+  
 
   React.useEffect(() => {
   if (sanityData.one[0].statics) {
@@ -61,7 +65,8 @@ const sanityLength = Object.keys(sanityData).length;
            
               <LandingPageMain sanityData={sanityData}/>
               
-              <UploadFile />
+              <UploadForm userName={name}/>
+              <FileGrid />
 
               {tables.length > 0 ? tables : null}
 

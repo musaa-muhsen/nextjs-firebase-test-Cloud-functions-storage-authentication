@@ -3,6 +3,7 @@ import admin from "firebase-admin";
 const serviceAccount = require("./secret.json");
 
 export const verifyIdToken = (token) => {
+
   if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
@@ -18,5 +19,7 @@ export const verifyIdToken = (token) => {
       throw error;  
     });
 };
+
+//export const timestamp = admin.firestore.FieldValue.serverTimestamp();
 
 // initializing the admin app this point 

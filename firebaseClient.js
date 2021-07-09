@@ -11,7 +11,7 @@
 import fb from '@firebase/app'; 
 import '@firebase/firestore' // database 
 import '@firebase/storage'; // store our files 
-
+// SDK 
 
 const FIREBASE_CONFIG = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -38,5 +38,7 @@ export const firebase = !fb.apps.length ? fb.initializeApp(FIREBASE_CONFIG) : fb
 
 const projectStorage = firebase.storage();
 const projectFirestore = firebase.firestore();
+// const timestamp = fb.firestore.FieldValue.serverTimestamp()
+// console.log(timestamp)
 
 export {projectStorage, projectFirestore}
