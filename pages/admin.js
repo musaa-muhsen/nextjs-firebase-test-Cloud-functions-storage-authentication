@@ -1,24 +1,40 @@
 import React from "react";
 import nookies from "nookies";
 import { verifyIdToken } from "../firebaseAdmin";
-import firebaseClient from "../firebaseClient";
-import firebase from "firebase/app";
+import {firebase} from "../firebaseClient";
+import "@firebase/auth";
+import styles from '../styles/admin.module.scss'
+import FileGrid from "../components/FileGrid";
+
+//import firebase from "firebase/app";
 
 const Admin = ({  email, uid, name }) => {
     
-    firebaseClient(); // what does do? 
+   // firebaseClient(); // what does do? 
     return ( 
         <>
-        <h1>{name}</h1>
+      <header className={styles.header}>
+        <h1>{name}</h1> 
+        <div></div>
         <button
+        className={styles.logOutBtn}
           onClick={
                   async () => {
                 await firebase.auth().signOut();
                 window.location.href = "/";
           }}>Sign out</button>
+        </header>
+        <section className={styles.mainContainer}>
+          <FileGrid />
+       
+          </section>  
+
         </>
      );
 }
+
+
+
 
 export const getServerSideProps = async (context) => {
     //console.log(context) // node stuff 

@@ -2,7 +2,6 @@ import styles from '../styles/Home.module.scss'
 //import {sanityClient} from '../sanity'; 
 import React from 'react';
 import SignInPage from '../components/SignInPage'
-import WriteToCloudFirestore from '../components/cloudFirestore/Write';
 
 export default function Home({sanityData}) {
 //console.log(sanityData)
@@ -17,7 +16,7 @@ const backgroundImage = {backgroundImage: `url('/assets/CUBICLE_Detail-2020_1820
              <p>LOGO</p> 
             </div>
            <SignInPage />
-           <WriteToCloudFirestore />
+         
            </div>
             
            </>

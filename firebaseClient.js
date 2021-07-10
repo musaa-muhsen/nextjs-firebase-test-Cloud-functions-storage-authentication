@@ -23,10 +23,13 @@ const FIREBASE_CONFIG = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 }
 
-// export default function firebaseClient() { 
+// export function firebaseClient() { 
 //     if (!firebase.apps.length) {
-//       firebase.initializeApp(FIREBASE_CONFIG); // we initialzing it 
+// const timestamp = fb.firestore.FieldValue.serverTimestamp();
+// return timestamp
+//       //firebase.initializeApp(FIREBASE_CONFIG); // we initialzing it 
 //     }
+//     return timestamp
 //     //console.log('winning')
 //   }
 
@@ -34,11 +37,11 @@ const FIREBASE_CONFIG = {
 The reason behind this is that firebase can only be initialized once, but the way you're doing it right now, Next.js tries to initialize it both on the backend and the frontend.
 This method checks to see whether there it's been initialized already, and only initializes it if it has been. If not, it just returns the initialized firebase app
 */
-export const firebase = !fb.apps.length ? fb.initializeApp(FIREBASE_CONFIG) : fb.app();
+const firebase = !fb.apps.length ? fb.initializeApp(FIREBASE_CONFIG) : fb.app();
 
 const projectStorage = firebase.storage();
 const projectFirestore = firebase.firestore();
-// const timestamp = fb.firestore.FieldValue.serverTimestamp()
+ const timestamp = fb.firestore.FieldValue.serverTimestamp()
 // console.log(timestamp)
 
-export {projectStorage, projectFirestore}
+export {projectStorage, projectFirestore,timestamp , firebase}

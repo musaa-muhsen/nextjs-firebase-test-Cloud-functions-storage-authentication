@@ -2,7 +2,7 @@ import React from 'react';
 import useFirestore from '../hooks/useFirestore';
 
 const FileGrid = () => {
-    const {docs} = useFirestore('images');
+    const {docs} = useFirestore('files');
     console.log(docs)
     return ( 
         <div className="fileGrid">

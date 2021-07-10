@@ -20,14 +20,22 @@ const UploadForm = ({userName}) => {
 
     return ( 
         <div className="formContainer">
-           <form>
-            <input type="file" onChange={changeHandler}/>
+           <div className="button-wrapper">
+           <span className="label">Upload File </span>
+            
+            <input type="file" 
+            name="upload" 
+            id="upload" 
+            className="upload-box" 
+            placeholder="Upload File"
+            onChange={changeHandler}
+            />
             <div className="output">
                 {error && <div className="error">{error}</div>}
                 {file && <div className="fileName">{file.name}</div> }
                 {file && <ProgressBar userName={userName} file={file} setFile={setFile} />} 
             </div>
-        </form>
+        </div>
         </div>
      );
 }

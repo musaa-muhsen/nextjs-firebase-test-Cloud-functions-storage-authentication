@@ -3,7 +3,7 @@ import React, { useEffect, useState} from 'react';
 //import firebaseClient from "../firebaseClient";
 //import firebase from "firebase/app";
 import {firebase}  from '../firebaseClient';
-//import "firebase/auth";
+import "@firebase/auth";
 import styles from '../styles/SignInPage.module.scss'
 
 
@@ -113,7 +113,7 @@ const SignInPage = () => {
                   //console.log(userCredentials);
                   if (userCredentials.user.displayName ===  displayName && userCredentials.user.displayName !== 'Admin') {
                     //console.log(userCredentials.user);
-                    window.location.href = "/authenticated";
+                    window.location.href = "/dashboard";
                    }  else if (userCredentials.user.displayName ===  displayName && userCredentials.user.displayName === 'Admin') {
                     window.location.href = "/admin";
                    }

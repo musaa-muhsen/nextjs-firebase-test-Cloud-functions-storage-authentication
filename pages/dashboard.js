@@ -5,21 +5,17 @@ import { verifyIdToken } from "../firebaseAdmin";
 import {firebase }  from '../firebaseClient';
 import {sanityClient} from '../sanity'; 
 import '@firebase/auth';   // for authentication doesnt do anything?
-import Table from "../components/Table";
-import Footer from '../components/Footer'
+import Table from "../components/sanityComps/Table";
+import Footer from '../components/sanityComps/Footer'
 import styles from '../styles/Auth.module.scss'
 //import {urlFor} from '../sanity';
-import LandingPageMain from "../components/landingPage/LandingPageMain";
+import LandingPageMain from "../components/sanityComps/LandingPageMain";
 
- import UploadFile from "../components/storage/UploadFile";
- import UploadFile2 from "../components/storage/UploadFile2";
-
-
-import ProjectDetails from "../components/ProjectDetails";
-import StaticsImages from "../components/StatsImages";
+import ProjectDetails from "../components/sanityComps/ProjectDetails";
+import StaticsImages from "../components/sanityComps/StatsImages";
 
 import UploadForm from "../components/UploadForm";
-import FileGrid from "../components/FileGrid";
+//import FileGrid from "../components/FileGrid";
 
 function Authenticated({  email, uid, sanityData, name }) {
   const [tables, setTables] = React.useState([])
@@ -65,8 +61,9 @@ const sanityLength = Object.keys(sanityData).length;
            
               <LandingPageMain sanityData={sanityData}/>
               
+              <p className="titleRem">Upload any file which goes to admin page and categorised into each client section. <br/> Added a loading bar and file name whilst uploading.</p>
               <UploadForm userName={name}/>
-              <FileGrid />
+              {/* <FileGrid /> */}
 
               {tables.length > 0 ? tables : null}
 

@@ -9,6 +9,7 @@ const useFirestore = (collection) => {
         .onSnapshot((snap) => {
             // that moment in time of the database 
             // notified of that in this 
+            // maybe it's at this point we should send the email
             let documents = [];
             snap.forEach(doc => {
                 documents.push({...doc.data(), id: doc.id})
