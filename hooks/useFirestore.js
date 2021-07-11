@@ -6,6 +6,7 @@ const useFirestore = (collection) => {
 
     useEffect(() => {
         const unsub = projectFirestore.collection(collection)
+        .orderBy('createdAt' , 'desc')
         .onSnapshot((snap) => {
             // that moment in time of the database 
             // notified of that in this 

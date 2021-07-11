@@ -210,3 +210,68 @@ margin-bottom: 20px;
 .titleRem {
   //font-size: 1.4rem;
 }
+.fileWrapper {
+  margin: 0 auto;
+  width: 300px;
+  height: auto;
+  border: 1px solid var(--black);
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+}
+.downloadBtn {
+  display: block;
+  background: var(--black);
+  //padding:20px;
+  text-align: center;
+  color:var(--white);
+  border: none; 
+  //border-radius: 50px;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: capitalize;
+  cursor: pointer;
+  height: 50px;
+  width: 80px;
+  border-radius: 50%;
+  //transition: background-color 0.3s ease-in-out;
+  &:hover {
+
+// background: rgba(#232323, 0.8);
+background-color: rgb(27, 27, 27); 
+color:var(--white);
+  }
+}
+.cardFooter {
+  display: flex;
+  .btnContainer, .dateContainer {
+    flex: 1 50%;
+    display: flex;
+   
+    align-items: center;
+  }
+  
+}
+.btnContainer {
+  justify-content: flex-end;
+  a {
+    padding: 10px;
+  }
+  //background: palegreen;
+}
+.fileNameContainer {
+  word-wrap: break-word;
+  padding: 10px;
+}
+
+.dateContainer {
+  padding-left: 10px;
+}
+
+.fileGrid {
+  margin: 100px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: auto;
+  row-gap: 20px;
+}

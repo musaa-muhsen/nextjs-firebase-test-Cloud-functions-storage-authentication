@@ -5,11 +5,13 @@ import {firebase} from "../firebaseClient";
 import "@firebase/auth";
 import styles from '../styles/admin.module.scss'
 import FileGrid from "../components/FileGrid";
+import useFirestore from '../hooks/useFirestore';
 
 //import firebase from "firebase/app";
 
 const Admin = ({  email, uid, name }) => {
-    
+  const {docs} = useFirestore('files');
+  console.log(docs)
    // firebaseClient(); // what does do? 
     return ( 
         <>
@@ -25,7 +27,7 @@ const Admin = ({  email, uid, name }) => {
           }}>Sign out</button>
         </header>
         <section className={styles.mainContainer}>
-          <FileGrid />
+         { docs.length > 0 ? <FileGrid /> : null} 
        
           </section>  
 

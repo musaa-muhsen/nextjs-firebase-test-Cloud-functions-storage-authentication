@@ -43,5 +43,5 @@ const projectStorage = firebase.storage();
 const projectFirestore = firebase.firestore();
  const timestamp = fb.firestore.FieldValue.serverTimestamp()
 // console.log(timestamp)
-
+//.fromDate(new Date());
 export {projectStorage, projectFirestore,timestamp , firebase}
