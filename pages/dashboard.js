@@ -31,6 +31,7 @@ function Authenticated({  email, uid, sanityData, name }) {
     //console.log('true')
    
   }
+
   // add more here 
 }, [])
 
@@ -53,13 +54,17 @@ const sanityLength = Object.keys(sanityData).length;
                 window.location.href = "/";
           }}>Sign out</button>
         </header>
-
-        <section className={styles.mainContainer}>
-            <p>
+        <div>
+        <p className="auth-title-container">
               You're now authenticated can now do anything you want.
             </p>
+        </div>
+      
+        <LandingPageMain sanityData={sanityData}/>
+        <section className={styles.mainContainer}>
            
-              <LandingPageMain sanityData={sanityData}/>
+           
+              
               
               <p className="titleRem">Upload any file which goes to admin page and categorised into each client section. <br/> Added a loading bar and file name whilst uploading.</p>
               <UploadForm userName={name}/>

@@ -36,10 +36,10 @@ const FileGrid = () => {
                                     <p>{date}</p>
                                 </div>
                             <div className="btnContainer">
-                            <a href={doc.url} target="_blank" rel="noopener noreferrer" download>
-                         <button className="downloadBtn">
+                            <a href={doc.url} className="downloadBtn" target="_blank" rel="noopener noreferrer" download>
+                         {/* <button className="downloadBtn"> */}
                             Download
-                         </button>
+                         {/* </button> */}
                            </a>
                             </div>
                             </div>
