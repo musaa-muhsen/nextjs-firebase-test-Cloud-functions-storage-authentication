@@ -5,7 +5,7 @@ export default function ImageOverlay({imageState, manageModalState, modalState, 
     return (
         <div 
          onClick={() => manageModalState()} 
-        className={`itemOverlay`}
+        className={`itemOverlay itemOverlay-${modalState}`}
          >
                 {/* <div className="itemOverlayWrapper"> */}
                 <img  src={urlFor(imageState)} alt={imageState} />

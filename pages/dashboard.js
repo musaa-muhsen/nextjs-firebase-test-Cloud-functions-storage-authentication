@@ -10,10 +10,8 @@ import Footer from '../components/sanityComps/Footer'
 import styles from '../styles/Auth.module.scss'
 //import {urlFor} from '../sanity';
 import LandingPageMain from "../components/sanityComps/LandingPageMain";
-
 import ProjectDetails from "../components/sanityComps/ProjectDetails";
 import StaticsImages from "../components/sanityComps/StatsImages";
-
 import UploadForm from "../components/UploadForm";
 //import FileGrid from "../components/FileGrid";
 
@@ -61,20 +59,14 @@ const sanityLength = Object.keys(sanityData).length;
         </div>
       
         <LandingPageMain sanityData={sanityData}/>
-        <section className={styles.mainContainer}>
-           
-           
-              
-              
-              <p className="titleRem">Upload any file which goes to admin page and categorised into each client section. <br/> Added a loading bar and file name whilst uploading.</p>
-              <UploadForm userName={name}/>
+        <section className={styles.mainContainer}>   
+            <p className="titleRem">Upload any file which goes to admin page and categorised into each client section. <br/> Added a loading bar and file name whilst uploading.</p>
+            <UploadForm userName={name}/>
               {/* <FileGrid /> */}
 
-              {tables.length > 0 ? tables : null}
-
-         {sanityData.one[0].statsImages   && <StaticsImages sanityData={sanityData} /> }
-
-             {sanityData.one[0].blockText && <ProjectDetails sanityData={sanityData}/>} 
+            {tables.length > 0 ? tables : null}
+            {sanityData.one[0].statsImages   && <StaticsImages sanityData={sanityData} /> }
+            {sanityData.one[0].blockText && <ProjectDetails sanityData={sanityData}/>} 
             
            
          

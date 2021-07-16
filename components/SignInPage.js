@@ -1,12 +1,8 @@
 import React, { useEffect, useState} from 'react';
-//import {useAuth} from '../auth';
-//import firebaseClient from "../firebaseClient";
-//import firebase from "firebase/app";
-import {firebase}  from '../firebaseClient';
-import "@firebase/auth";
+import {firebase, projectFirestore, timestamp}  from '../firebaseClient';
+//import { getAuth, signInWithCustomToken } from "@firebase/auth";
 import styles from '../styles/SignInPage.module.scss'
-
-
+import togetherString from './togetherString'
 
 // import SingInButton from './buttons/SignInbutton';
 // import CreateButton from './buttons/CreateButton';
@@ -17,6 +13,15 @@ const SignInPage = () => {
     const [password, setPass] = useState("");
     const [displayName, setDisplayName] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+
+  const togetherString = (value) => {
+    
+      let str = value.split(' ').join('');
+      str = str + '@generic.com'; 
+  
+  
+     return str
+  } 
     //console.log(displayName)
   
     //const {user} = useAuth();
@@ -26,7 +31,7 @@ const SignInPage = () => {
         <p className={styles.title}>
           Login
         </p>
-         <div>
+         {/* <div>
           <input
           className={styles.inputs}
             onChange={(e) => setDisplayName(e.target.value)}
@@ -36,16 +41,16 @@ const SignInPage = () => {
             aria-describedby="username-helper-text"
             placeholder="User Name"
           />
-          </div>
+          </div> */}
           <div>
           <input
-             className={styles.inputs}
+            className={styles.inputs}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             id="emailAddress"
             value={email}
             aria-describedby="email-helper-text"
-            placeholder="Email"
+            placeholder="User Name"
           />
          </div>
           <div>
@@ -72,29 +77,55 @@ const SignInPage = () => {
           //     displayName	
           // })
           e.preventDefault();
+
           await firebase
             .auth()
-            .createUserWithEmailAndPassword(email, password)
+            .createUserWithEmailAndPassword(togetherString(email), password)
             .then((userCredentials)=>{
-              //If you do not want to add an User doc to Firestore and just use the Firestore Auth data, you don`t need the pushUserData() method.
-              if (displayName.length > 0) {
-                if(userCredentials.user){
-                  userCredentials.user.updateProfile({
-                    displayName : displayName
-                  })         
+              console.log(userCredentials.user.email)
+                //If you do not want to add an User doc to Firestore and just use the Firestore Auth data, you don`t need the pushUserData() method.
+                /*
+                if (displayName.length > 0) {
+                  if(userCredentials.user){
+                 
+                  }
                 }
-                setEmail("");
-                setPass("");
-                setDisplayName("");
-              } else {
-                setErrorMessage('Please add a user name.');
-              }
+                */
+                // const newEmail = togetherString(email);
+                // console.log(newEmail)
+                // userCredentials.user.updateProfile({
+                //   email : newEmail
+                // })      
+                // const user = firebase.auth().currentUser;
+                //  user.updateProfile({
+                //     displayName : 
+                //   })
+              
+                //const collection =  projectFirestore.collection('users');
+                
+
+              //   }
+              //   setEmail("");
+              //   setPass("");
+              //   setDisplayName("");
+              // } else {
+              //   setErrorMessage('Please add a user name.');
+              // }
               // maybe add validation here about empty user name 
               //console.log(userCredentials.user)
-            })
-            // .then(function (firebaseUser) {
-            //   window.location.href = "/authenticated";
+            //   firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid)
+            // .set({
+            //   email,
+            //   displayName,
+            //   uid : userCredentials.user.uid,
+            //   password : userCredentials.user.providerId
             // })
+            firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid)
+            .set({
+              email
+            })
+            
+            })
             .catch(function (error) {
               const message = error.message;
               setErrorMessage(message)
@@ -102,28 +133,31 @@ const SignInPage = () => {
         }}
       >
         Create account
-      </button> 
-      <button
+      </button>
+
+
+   <button
        className={styles.btn}
             onClick={async (e) => {
               e.preventDefault();
               await firebase.auth()
-                .signInWithEmailAndPassword(email, password)
+                .signInWithEmailAndPassword(togetherString(email), password)
                 .then((userCredentials)=>{
                   //console.log(userCredentials);
-                  if (userCredentials.user.displayName ===  displayName && userCredentials.user.displayName !== 'Admin') {
-                    //console.log(userCredentials.user);
-                    window.location.href = "/dashboard";
-                   }  else if (userCredentials.user.displayName ===  displayName && userCredentials.user.displayName === 'Admin') {
+                  console.log(userCredentials.user);
+                  // if (userCredentials.user.displayName ===  displayName && userCredentials.user.displayName !== 'Admin') {
+                    
+                  //   window.location.href = "/dashboard";
+                  //  }  else if (userCredentials.user.displayName ===  displayName && userCredentials.user.displayName === 'Admin') {
                     window.location.href = "/admin";
-                   }
-                   else {
-                    // add a component for error here 
-                    setErrorMessage('No entry!')
-                  }
-                  setEmail("");
-                  setPass("");
-                  setDisplayName("");
+                  //  }
+                  //  else {
+                  //   // add a component for error here 
+                  //   setErrorMessage('No entry!')
+                  // }
+                  // setEmail("");
+                  // setPass("");
+                  // setDisplayName("");
                 })
                 // .then(function (firebaseUser) {
                 //   window.location.href = "/authenticated";
@@ -137,6 +171,9 @@ const SignInPage = () => {
           >
             Log in
           </button>
+
+
+
          <p>{errorMessage}</p>
          </div>
     </div>
@@ -145,8 +182,8 @@ const SignInPage = () => {
  
 export default SignInPage;
 
-       {/* <CreateButton setEmail={setEmail} email={email} setPass={setPass} password={password} setDisplayName={setDisplayName}/>
-        <SingInButton setEmail={setEmail} email={email} setPass={setPass} password={password} setDisplayName={setDisplayName}/> */}
+       /* <CreateButton setEmail={setEmail} email={email} setPass={setPass} password={password} setDisplayName={setDisplayName}/>
+        <SingInButton setEmail={setEmail} email={email} setPass={setPass} password={password} setDisplayName={setDisplayName}/> */
      //  else if (userCredentials.user.displayName === 'Admin') {
                   //   window.location.href = "/admin";
                   //   }
@@ -157,3 +194,10 @@ export default SignInPage;
                       console.log('admin')
                        }
                   */
+
+
+
+
+
+                       
+

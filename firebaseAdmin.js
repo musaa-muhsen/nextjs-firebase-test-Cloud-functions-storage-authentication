@@ -20,6 +20,25 @@ export const verifyIdToken = (token) => {
     });
 };
 
+export const adminTest = (uid) => {
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+      databaseURL: "nextjs-with-firebase-aut-33aec.firebaseio.com",
+    });
+  }
+
+  return admin
+    .auth()
+    .createCustomToken(uid)
+     .then((customToken) => {
+       console.log(customToken, 'hello')
+     })
+  .catch((error) => {
+    console.log('Error creating custom token:', error);
+  });
+} 
+
 //export const timestamp = admin.firestore.FieldValue.serverTimestamp();
 
 // initializing the admin app this point 
